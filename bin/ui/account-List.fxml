@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: gold;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="141.0" layoutY="27.0" prefHeight="30.0" prefWidth="193.0" text="User account List">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="22.0" />
+         </font>
+      </Label>
+      <TableView fx:id="tvUsersAcc" layoutX="24.0" layoutY="70.0" prefHeight="311.0" prefWidth="448.0">
+        <columns>
+          <TableColumn fx:id="colUser" prefWidth="91.0" text="User" />
+          <TableColumn fx:id="colGen" prefWidth="66.0" text="Gender" />
+            <TableColumn fx:id="colCar" prefWidth="102.0" text="Career" />
+            <TableColumn fx:id="colBir" prefWidth="102.0" text="Birthday" />
+            <TableColumn fx:id="colBro" minWidth="1.0" prefWidth="99.0" text="Browser" />
+            <TableColumn fx:id="colPas" prefWidth="40.0" text="Password" />
+        </columns>
+      </TableView>
+      <Label fx:id="labelUser" layoutX="358.0" layoutY="20.0" prefHeight="30.0" prefWidth="74.0">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="15.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="imageUser" fitHeight="51.0" fitWidth="57.0" layoutX="440.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="btnLogOut" layoutX="514.0" layoutY="28.0" mnemonicParsing="false" style="-fx-background-color: white;" text="Log Out">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+      </Button>
+   </children>
+</Pane>
