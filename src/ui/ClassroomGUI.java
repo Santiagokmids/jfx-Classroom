@@ -135,11 +135,15 @@ public class ClassroomGUI {
 	  } 
 	  
 	  @FXML
-	  public void addUsers(ActionEvent event)throws IOException {
-		  Parent loader = FXMLLoader.load(getClass().getResource("account-List.fxml"));
+	  public void loginUsers(ActionEvent event)throws IOException {
+		  FXMLLoader loader = new FXMLLoader(getClass().getResource("account-List.fxml"));
+		  
+		  loader.setController(this);
+		  Parent loginUser = loader.load();
+		  
 		  mainPane.getChildren().clear();
-		  mainPane.setTop(loader);
-		  //initializeTableView();
+		  mainPane.setTop(loginUser);
+		  initializeTableView();
 	  }
 	  
 	  public void initializeTableView() {
@@ -152,6 +156,28 @@ public class ClassroomGUI {
 		  colCar.setCellValueFactory(new PropertyValueFactory<UserAccount, Career>("career"));
 		  colBir.setCellValueFactory(new PropertyValueFactory<UserAccount, String>("career"));
 		  colBro.setCellValueFactory(new PropertyValueFactory<UserAccount, Browser>("career"));
+	  }
+	  
+	  @FXML
+	  public void singUpUsers(ActionEvent event)throws IOException{
+		  FXMLLoader loader = new FXMLLoader(getClass().getResource("register.fxml"));
+		  
+		  loader.setController(this);
+		  Parent singUpUser = loader.load();
+		  
+		  mainPane.getChildren().clear();
+		  mainPane.setTop(singUpUser);
+	  }
+	  
+	  @FXML
+	  public void logout(ActionEvent event)throws IOException{
+		  FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+		  
+		  loader.setController(this);
+		  Parent logoutUs = loader.load(); 
+		  
+		  mainPane.getChildren().clear();
+		  mainPane.setTop(logoutUs);;
 	  }
 	  
 

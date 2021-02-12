@@ -25,12 +25,12 @@
             <DropShadow />
          </effect>
       </TextField>
-      <Button fx:id="btnSign" layoutX="165.0" layoutY="208.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="83.0" style="-fx-background-color: white;" text="Sign Up">
+      <Button fx:id="btnSign" layoutX="165.0" layoutY="208.0" mnemonicParsing="false" onAction="#singUpUsers" prefHeight="29.0" prefWidth="83.0" style="-fx-background-color: white;" text="Sign Up">
          <font>
             <Font name="Arial Rounded MT Bold" size="14.0" />
          </font>
       </Button>
-      <Button fx:id="btnLog" layoutX="260.0" layoutY="208.0" mnemonicParsing="false" onAction="#addUsers" prefHeight="29.0" prefWidth="83.0" style="-fx-background-color: white;" text="Login">
+      <Button fx:id="btnLog" layoutX="260.0" layoutY="208.0" mnemonicParsing="false" onAction="#loginUsers" prefHeight="29.0" prefWidth="83.0" style="-fx-background-color: white;" text="Login">
          <font>
             <Font name="Arial Rounded MT Bold" size="14.0" />
          </font>
