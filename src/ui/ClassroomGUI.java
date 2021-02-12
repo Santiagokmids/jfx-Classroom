@@ -180,6 +180,15 @@ public class ClassroomGUI {
 		  mainPane.setTop(logoutUs);;
 	  }
 	  
-
+	  @FXML
+	  public void outRegister(ActionEvent event)throws IOException{
+		  FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+		  
+		  loader.setController(this);
+		  Parent logoutOfRe = loader.load(); 
+		  
+		  mainPane.getChildren().clear();
+		  mainPane.setTop(logoutOfRe);;
+	  }
 	 
 }

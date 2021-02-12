@@ -101,7 +101,7 @@
          </font>
       </Label>
       <ComboBox fx:id="browsers" layoutX="162.0" layoutY="381.0" prefHeight="26.0" prefWidth="206.0" style="-fx-background-color: white;" />
-      <Button layoutX="145.0" layoutY="465.0" mnemonicParsing="false" style="-fx-background-color: white;" text="Sign in">
+      <Button layoutX="145.0" layoutY="465.0" mnemonicParsing="false" onAction="#outRegister" style="-fx-background-color: white;" text="Sign in">
          <font>
             <Font name="Book Antiqua" size="18.0" />
          </font>
