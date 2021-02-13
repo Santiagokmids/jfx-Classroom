@@ -10,7 +10,6 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="466.0" prefWidth="661.0" style="-fx-background-color: gold;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <BorderPane layoutX="8.0" layoutY="100.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="337.0" prefWidth="600.0" style="-fx-background-color: gold;">
@@ -35,7 +34,7 @@
             <Font name="Arial Rounded MT Bold" size="23.0" />
          </font>
       </Label>
-      <Label layoutX="430.0" layoutY="18.0" prefHeight="19.0" prefWidth="76.0" text="Userser">
+      <Label fx:id="userLog" alignment="CENTER" layoutX="342.0" layoutY="18.0" prefHeight="19.0" prefWidth="112.0">
          <font>
             <Font name="Bookshelf Symbol 7" size="16.0" />
          </font>
@@ -45,6 +44,6 @@
             <Font name="Berlin Sans FB" size="15.0" />
          </font>
       </Button>
-      <ImageView fitHeight="51.0" fitWidth="54.0" layoutX="491.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="image" fitHeight="81.0" fitWidth="76.0" layoutX="473.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

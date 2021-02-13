@@ -4,29 +4,28 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Classroom {
-	private List<UserAccount> users;
+	private List<UserAccount> accounts;
 	
 	public Classroom() {
-		users = new ArrayList<>();
+		accounts = new ArrayList<>();
 	}
 	
-	public List<UserAccount> getUsers() {
-		return users;
+	public void addUsers(String name, String password, String photo, String birthday, Gender gender, String career, Browser browser) {
+		accounts.add(new UserAccount(name, password, photo, birthday, gender, career, browser));
 	}
 	
-	public void addUsers(String name, String password, String photo, String birthday, Gender gender, String career, Browser browser, String file) {
-		users.add(new UserAccount(name, password, photo, birthday, gender, career, browser, file));
+	public List<UserAccount> getAccounts() {
+		return accounts;
 	}
 
-	public void setUsers(List<UserAccount> users) {
-		this.users = users;
+	public void setAccounts(List<UserAccount> accounts) {
+		this.accounts = accounts;
 	}
 	
 	public boolean searchUser(String name, String password) {
-		boolean find = true;
-		
-		for(int i = 0;i < users.size();i++) {
-			if(users.get(i).getName().equalsIgnoreCase(name) && users.get(i).getPassword().equalsIgnoreCase(password)) {
+		boolean find = true;  
+		for(int i = 0;i < accounts.size();i++) {
+			if(accounts.get(i).getName().equalsIgnoreCase(name) && accounts.get(i).getPassword().equalsIgnoreCase(password)) {
 				find = false;
 			}
 		}
@@ -35,13 +34,13 @@ public class Classroom {
 	
 	public String searchImage(String name, String password) {
 		String image = "";
-		
-		for(int i = 0;i < users.size();i++) {
-			if(users.get(i).getName().equalsIgnoreCase(name) && users.get(i).getPassword().equalsIgnoreCase(password)) {
-				image = users.get(i).getPhoto();
+
+		for(int i = 0;i < accounts.size();i++) {
+			if(accounts.get(i).getName().equalsIgnoreCase(name) && accounts.get(i).getPassword().equalsIgnoreCase(password)) {
+				image = accounts.get(i).getPhoto();
 			}
 		}
 		return image;
 	}
-}
 	
+}

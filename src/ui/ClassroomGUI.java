@@ -102,11 +102,14 @@ public class ClassroomGUI {
 	  @FXML
 	    private TableColumn<UserAccount, Browser> colBro;
 
-	  @FXML
-	    private ImageView imageUser;
+	   @FXML
+	    private ImageView image;
 
 	  @FXML
 	   private Label labMessUs;
+	  
+	   @FXML
+	    private Label userLog;
 	  
 	  @FXML
 	  public void loadLogin() throws IOException {
@@ -122,34 +125,40 @@ public class ClassroomGUI {
 	  
 	  @FXML
 	  public void loginUsers(ActionEvent event)throws IOException {
-		  
-		  if(!classroom.searchUser(txName.getText(), txPassword.getText())) {
-			  FXMLLoader loader = new FXMLLoader(getClass().getResource("account-List.fxml"));
-			  
-			  loader.setController(this);
-			  Parent loginUser = loader.load();
-			  
-			  mainPane.getChildren().clear();
-			  mainPane.setTop(loginUser);
-			  initializeTableView();
-			  
-			  Image imageView = new Image(classroom.searchImage(txName.getText(), txPassword.getText()));
-			  imageUser.setImage(imageView);
-		  }	
-		  else
+		 
+		  if(!txName.getText().equals("") && !txPassword.getText().equals("")) {
+				  
+			  if(!classroom.searchUser(txName.getText(), txPassword.getText())){
+				  
+				  FXMLLoader loader = new FXMLLoader(getClass().getResource("account-List.fxml"));
+					  
+				  loader.setController(this);
+				  Parent loginUser = loader.load();
+					  
+				  mainPane.getChildren().clear();
+				  mainPane.setTop(loginUser);
+				  userLog.setText(txName.getText());
+				  Image imageView = new Image(classroom.searchImage(txName.getText(), txPassword.getText()));
+				  image.setImage(imageView);
+				  
+				  initializeTableView();
+				  
+			  }else
+				  showAlert();
+		  }else
 			  showAlert();
 	  }
 	  
 	  public void initializeTableView() {
 		  ObservableList<UserAccount> observableList;
-		  observableList = FXCollections.observableArrayList(classroom.getUsers());	
+		  observableList = FXCollections.observableArrayList(classroom.getAccounts());	
 		  
 		  tvUsersAcc.setItems(observableList);
-		  colUser.setCellValueFactory(new PropertyValueFactory<UserAccount, String>("user"));
+		  colUser.setCellValueFactory(new PropertyValueFactory<UserAccount, String>("name"));
 		  colGen.setCellValueFactory(new PropertyValueFactory<UserAccount, Gender>("gender"));
 		  colCar.setCellValueFactory(new PropertyValueFactory<UserAccount, String>("career"));
-		  colBir.setCellValueFactory(new PropertyValueFactory<UserAccount, String>("career"));
-		  colBro.setCellValueFactory(new PropertyValueFactory<UserAccount, Browser>("career"));
+		  colBir.setCellValueFactory(new PropertyValueFactory<UserAccount, String>("birthday"));
+		  colBro.setCellValueFactory(new PropertyValueFactory<UserAccount, Browser>("browser"));
 	  }
 	  
 	  @FXML
@@ -191,15 +200,12 @@ public class ClassroomGUI {
 	  @FXML
 	  public void showAlert() {
 		  
-		  if(txName.getText().equals("") && txPassword.getText().equals("")) {
-			  Alert alert = new Alert(AlertType.ERROR);
-			  alert.setTitle("ERROR");
-			  alert.setHeaderText("Invalid User or Password");
-			  alert.setContentText("Your Username or Password is incorrect, please try again ");
+		  Alert alert = new Alert(AlertType.ERROR);
+		  alert.setTitle("ERROR");
+		  alert.setHeaderText("Invalid User or Password");
+		  alert.setContentText("Your Username or Password is incorrect, please try again ");
 			  
-			  alert.showAndWait();
-			  
-		    }
+		  alert.showAndWait();  
 	    }
 	  
 	  @FXML
@@ -208,7 +214,6 @@ public class ClassroomGUI {
 		  fileChooser.setTitle("Open Resource File");
 		  File file = fileChooser.showOpenDialog(null);
 		  txtPhoto.appendText(file.getAbsolutePath());
-		  
        }
 	  
 	  @FXML
@@ -219,7 +224,10 @@ public class ClassroomGUI {
 			 
 				labMessUs.setText("User has been created succesfully");
 				
-				classroom.addUsers(txtNameLog.getText(), txtPassLog.getText(), txtPhoto.getText(), txtBirth.getValue().toString(), genders(), careers(), browser(), txtPhoto.getText());
+				File images = new File(txtPhoto.getText());
+				String link = images.toURI().toString();
+				
+				classroom.addUsers(txtNameLog.getText(), txtPassLog.getText(), link, txtBirth.getValue().toString(), genders(), careers(), browser());
 		  }
 		  else {
 			  

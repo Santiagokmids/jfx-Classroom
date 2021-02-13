@@ -8,17 +8,15 @@ public class UserAccount {
 	private String career;
 	private String birthday; 
 	private Browser browser;
-	private String file;
 	
-	public UserAccount(String name, String password, String photo, String birthday, Gender gender, String career, Browser browser, String file) {
-		this.setName(name);
-		this.setPassword(password);
-		this.setPhoto(photo);
-		this.setBirthday(birthday);
+	public UserAccount(String name, String password, String photo, String birthday, Gender gender, String career, Browser browser) {
+		this.name = name;
+		this.password = password;
+		this.photo = photo;
+		this.birthday = birthday;
 		this.gender = gender;
 		this.career = career;
 		this.browser = browser;
-		this.file = file;
 	}
 
 	public String getName() {
@@ -76,15 +74,6 @@ public class UserAccount {
 	public void setBrowser(Browser browser) {
 		this.browser = browser;
 	}
-
-	public String getFile() {
-		return file;
-	}
-
-	public void setFile(String file) {
-		this.file = file;
-	}
-	
 	
 	
 }

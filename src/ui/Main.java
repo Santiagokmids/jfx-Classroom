@@ -13,8 +13,8 @@ public class Main extends Application{
 	private Classroom classroom;
 	
 	public Main() {
-		classroomgui = new ClassroomGUI(classroom);
 		classroom = new Classroom();
+		classroomgui = new ClassroomGUI(classroom);
 		
 	}
 	
