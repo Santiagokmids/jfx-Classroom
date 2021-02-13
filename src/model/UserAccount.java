@@ -5,11 +5,12 @@ public class UserAccount {
 	private String password;
 	private String photo;
 	private Gender gender;
-	private Career career;
+	private String career;
 	private String birthday; 
 	private Browser browser;
+	private String file;
 	
-	public UserAccount(String name, String password, String photo, String birthday, Gender gender, Career career, Browser browser) {
+	public UserAccount(String name, String password, String photo, String birthday, Gender gender, String career, Browser browser, String file) {
 		this.setName(name);
 		this.setPassword(password);
 		this.setPhoto(photo);
@@ -17,6 +18,7 @@ public class UserAccount {
 		this.gender = gender;
 		this.career = career;
 		this.browser = browser;
+		this.file = file;
 	}
 
 	public String getName() {
@@ -59,11 +61,11 @@ public class UserAccount {
 		this.gender = gender;
 	}
 
-	public Career getCareer() {
+	public String getCareer() {
 		return career;
 	}
 
-	public void setCareer(Career career) {
+	public void setCareer(String career) {
 		this.career = career;
 	}
 
@@ -73,6 +75,14 @@ public class UserAccount {
 
 	public void setBrowser(Browser browser) {
 		this.browser = browser;
+	}
+
+	public String getFile() {
+		return file;
+	}
+
+	public void setFile(String file) {
+		this.file = file;
 	}
 	
 	

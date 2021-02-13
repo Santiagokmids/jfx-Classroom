@@ -1,5 +1,6 @@
 package ui;
 
+import java.io.File;
 import java.io.IOException;
 
 import javafx.collections.FXCollections;
@@ -8,8 +9,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -21,10 +22,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.FileChooser;
 import model.Browser;
-import model.Career;
 import model.Classroom;
 import model.Gender;
 import model.UserAccount;
@@ -44,12 +46,6 @@ public class ClassroomGUI {
 	   private TextField txName;
 
 	 @FXML
-	    private Button btnSign;
-
-	 @FXML
-	    private Button btnLog;
-
-	 @FXML
 	    private PasswordField txPassword;
 	 
 	  @FXML
@@ -57,9 +53,6 @@ public class ClassroomGUI {
 
 	  @FXML
 	    private TextField txtPhoto;
-
-	  @FXML
-	    private Button btnBrowse;
 
 	  @FXML
 	    private RadioButton male;
@@ -101,7 +94,7 @@ public class ClassroomGUI {
 	    private TableColumn<UserAccount, Gender> colGen;
 
 	  @FXML
-	    private TableColumn<UserAccount, Career> colCar;
+	    private TableColumn<UserAccount, String> colCar;
 
 	  @FXML
 	    private TableColumn<UserAccount, String> colBir;
@@ -110,17 +103,10 @@ public class ClassroomGUI {
 	    private TableColumn<UserAccount, Browser> colBro;
 
 	  @FXML
-	    private Label labelUser;
-
-	  @FXML
 	    private ImageView imageUser;
 
 	  @FXML
-	    private Button btnLogOut;
-	  
-	  @FXML
-	  public void initialize() {
-	  }
+	   private Label labMessUs;
 	  
 	  @FXML
 	  public void loadLogin() throws IOException {
@@ -136,14 +122,22 @@ public class ClassroomGUI {
 	  
 	  @FXML
 	  public void loginUsers(ActionEvent event)throws IOException {
-		  FXMLLoader loader = new FXMLLoader(getClass().getResource("account-List.fxml"));
 		  
-		  loader.setController(this);
-		  Parent loginUser = loader.load();
-		  
-		  mainPane.getChildren().clear();
-		  mainPane.setTop(loginUser);
-		  initializeTableView();
+		  if(!classroom.searchUser(txName.getText(), txPassword.getText())) {
+			  FXMLLoader loader = new FXMLLoader(getClass().getResource("account-List.fxml"));
+			  
+			  loader.setController(this);
+			  Parent loginUser = loader.load();
+			  
+			  mainPane.getChildren().clear();
+			  mainPane.setTop(loginUser);
+			  initializeTableView();
+			  
+			  Image imageView = new Image(classroom.searchImage(txName.getText(), txPassword.getText()));
+			  imageUser.setImage(imageView);
+		  }	
+		  else
+			  showAlert();
 	  }
 	  
 	  public void initializeTableView() {
@@ -153,7 +147,7 @@ public class ClassroomGUI {
 		  tvUsersAcc.setItems(observableList);
 		  colUser.setCellValueFactory(new PropertyValueFactory<UserAccount, String>("user"));
 		  colGen.setCellValueFactory(new PropertyValueFactory<UserAccount, Gender>("gender"));
-		  colCar.setCellValueFactory(new PropertyValueFactory<UserAccount, Career>("career"));
+		  colCar.setCellValueFactory(new PropertyValueFactory<UserAccount, String>("career"));
 		  colBir.setCellValueFactory(new PropertyValueFactory<UserAccount, String>("career"));
 		  colBro.setCellValueFactory(new PropertyValueFactory<UserAccount, Browser>("career"));
 	  }
@@ -167,6 +161,9 @@ public class ClassroomGUI {
 		  
 		  mainPane.getChildren().clear();
 		  mainPane.setTop(singUpUser);
+		  
+		  browsers.setPromptText("Select your favorite browser");
+		  browsers.getItems().addAll("Google","Opera","Opera GX","Mozilla","Microsoft Edge");
 	  }
 	  
 	  @FXML
@@ -190,5 +187,106 @@ public class ClassroomGUI {
 		  mainPane.getChildren().clear();
 		  mainPane.setTop(logoutOfRe);;
 	  }
+	  
+	  @FXML
+	  public void showAlert() {
+		  
+		  if(txName.getText().equals("") && txPassword.getText().equals("")) {
+			  Alert alert = new Alert(AlertType.ERROR);
+			  alert.setTitle("ERROR");
+			  alert.setHeaderText("Invalid User or Password");
+			  alert.setContentText("Your Username or Password is incorrect, please try again ");
+			  
+			  alert.showAndWait();
+			  
+		    }
+	    }
+	  
+	  @FXML
+	  public void chooseImage(ActionEvent event)throws IOException {
+		  FileChooser fileChooser = new FileChooser();
+		  fileChooser.setTitle("Open Resource File");
+		  File file = fileChooser.showOpenDialog(null);
+		  txtPhoto.appendText(file.getAbsolutePath());
+		  
+       }
+	  
+	  @FXML
+	  public void createUser(ActionEvent event) throws IOException{
+		  
+		  if(!txtNameLog.getText().equals("") && !txtPassLog.getText().equals("") && !txtPhoto.getText().equals("") && (male.isSelected() || female.isSelected() 
+				  || other.isSelected()) && (softEng.isSelected() || TelEng.isSelected() || IndEng.isSelected()) && txtBirth.getValue() != null && browsers.getValue() != null) { 
+			 
+				labMessUs.setText("User has been created succesfully");
+				
+				classroom.addUsers(txtNameLog.getText(), txtPassLog.getText(), txtPhoto.getText(), txtBirth.getValue().toString(), genders(), careers(), browser(), txtPhoto.getText());
+		  }
+		  else {
+			  
+			 Alert alert = new Alert(AlertType.ERROR);
+			 alert.setTitle("ERROR");
+			 alert.setHeaderText("You must fill all the fields");
+			 alert.setContentText(null);
+			 alert.showAndWait();
+		 }
+	  }
+	  
+	  public Gender genders() {
+		  Gender gender = null;
+		  
+		  if(male.isSelected()) {
+			  gender = Gender.MALE;
+		  }
+		  
+		  else if(female.isSelected()) {
+			  gender = Gender.FEMALE;
+		  }
+		  
+		  else if(other.isSelected()) {
+			  gender = Gender.OTHER;
+		  }
+		  
+		  return gender;
+	  }
+	  
+	  public String careers() {
+		  String career = "";
+		  
+		  if(softEng.isSelected()) {
+			  career = "Software Engeenering ";
+		  }
+		  
+		  if(TelEng.isSelected()) {
+			  career += "Telematic Engeenering ";
+		  }
+		  
+		  if(IndEng.isSelected()) {
+			  career += "Industrial Engeenering";
+		  }
+		  return career;
+	  }
+	  
+	  public Browser browser() {
+		  Browser browserSelect = null;
+		  
+		  if(browsers.getValue().equals("Google")) {
+			  browserSelect = Browser.GOOGLE;
+		  }
+		  else if(browsers.getValue().equals("Opera")) {
+			  browserSelect = Browser.OPERA;
+		  }
+		  else if(browsers.getValue().equals("Opera GX")) {
+			  browserSelect = Browser.OPERA_GX;
+		  }
+		  else if(browsers.getValue().equals("Mozilla")) {
+			  browserSelect = Browser.MOZILLA;
+		  }
+		  else if(browsers.getValue().equals("Microsoft Edge")) {
+			  browserSelect = Browser.MICROSOFT_EDGE;
+		  }
+		  
+		  return browserSelect;
+	  }
+	  
 	 
 }
